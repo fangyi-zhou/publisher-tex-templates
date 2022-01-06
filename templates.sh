@@ -2,9 +2,16 @@
 
 set -euo pipefail
 
+function check_installed() {
+  if [ -z "$(which "$1")" ]
+  then
+    echo "$1" is not uninstalled
+    exit 1
+  fi
+}
+
 function download_file() {
   # $1 is URL, $2 is output file name
-  # TODO: Check whether curl exists
   curl -o "$2" -L "$1"
 }
 
@@ -44,6 +51,9 @@ function get_lmcs() {
   download_file "$LMCS_URL" ./lmcs.cls
 }
 
+check_installed curl
+check_installed unzip
+
 case "$1" in
   "acm"|"sigplan")
     get_acm
@@ -68,3 +78,6 @@ case "$1" in
     echo "Supported options are acm, lncs, lipics, lmcs, and all"
     ;;
 esac
+
+# Cleanup the temp directory
+rm -rf "$TMP"
