@@ -51,6 +51,15 @@ function get_lmcs() {
   download_file "$LMCS_URL" ./lmcs.cls
 }
 
+function get_eptcs() {
+  # Electronic Proceedings in Theoretical Computer Science
+  # http://style.eptcs.org/
+  EPTCS_URL="http://eptcs.web.cse.unsw.edu.au/eptcsstyle.zip"
+  EPTCS_FILES=(eptcs.cls breakurl.sty eptcs.bst)
+  download_file "$EPTCS_URL" "$TMP/eptcs.zip"
+  unzip -j "$TMP/eptcs" "${EPTCS_FILES[@]}"
+}
+
 check_installed curl
 check_installed unzip
 
@@ -67,15 +76,19 @@ case "$1" in
   "lmcs")
     get_lmcs
     ;;
+  "eptcs")
+    get_eptcs
+    ;;
   "all")
     get_acm
-    get_lncs
+    get_eptcs
     get_lipics
     get_lmcs
+    get_lncs
     ;;
   *)
     echo "Unrecognised option"
-    echo "Supported options are acm, lncs, lipics, lmcs, and all"
+    echo "Supported options are acm, eptcs, lncs, lipics, lmcs, and all"
     ;;
 esac
 
