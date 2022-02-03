@@ -29,7 +29,7 @@ function get_acm() {
 function get_lncs() {
   # Springer LNCS
   # https://www.springer.com/gp/computer-science/lncs/conference-proceedings-guidelines
-  LNCS_URL="https://resource-cms.springernature.com/springer-cms/rest/v1/content/19238648/data/v1"
+  LNCS_URL="https://resource-cms.springernature.com/springer-cms/rest/v1/content/19238648/data/v2"
   LNCS_FILES=(llncs.cls splncs04.bst)
   download_file "$LNCS_URL" "$TMP/lncs.zip"
   unzip -j "$TMP/lncs.zip" "${LNCS_FILES[@]}"
